@@ -2,15 +2,10 @@ import runpod
 
 
 def handler(job):
-    job_input = job.get("input", {})
-
     return {
         "status": "ok",
-        "message": "MODARIA Serverless Worker funcionando",
-        "input": job_input
+        "message": "MODARIA Serverless Worker funcionando"
     }
 
 
-runpod.serverless.start({
-    "handler": handler
-})
+runpod.serverless.start(handler)
