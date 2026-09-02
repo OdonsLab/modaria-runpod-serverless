@@ -22,10 +22,8 @@ def start_comfyui():
     process = subprocess.Popen(
         ["python", "main.py", "--listen", "127.0.0.1", "--port", "8188"],
         cwd=COMFYUI_DIR,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
-        bufsize=1
+        stdout=None,
+        stderr=None
     )
 
     print("Esperando a que ComfyUI esté disponible...")
