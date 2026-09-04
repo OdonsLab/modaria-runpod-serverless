@@ -1,4 +1,3 @@
-```python
 import os
 import time
 import uuid
@@ -120,7 +119,6 @@ def wait_for_completion(prompt_id):
                 entry = history[prompt_id]
                 status = entry.get("status", {})
 
-                # ComfyUI marca error en status_str / messages
                 if status.get("status_str") == "error":
                     raise RuntimeError(
                         f"El workflow falló en ComfyUI: {status}"
@@ -129,7 +127,6 @@ def wait_for_completion(prompt_id):
                 if status.get("completed", False):
                     return entry
 
-                # Comprobación de errores de ejecución en los mensajes
                 for msg_type, msg_data in status.get("messages", []):
                     if msg_type == "execution_error":
                         raise RuntimeError(
@@ -156,11 +153,13 @@ def fetch_image(filename, subfolder, folder_type):
 
     response.raise_for_status()
 
-    return base64.b64encode(response.content).decode("utf-8")
+    return base64.b64encode(
+        response.content
+    ).decode("utf-8")
 
 
 def extract_images(history_entry):
-    """Recorre los outputs del history y descarga cada imagen generada."""
+    """Recorre los outputs y descarga cada imagen generada."""
 
     images = []
     outputs = history_entry.get("outputs", {})
@@ -244,7 +243,6 @@ print("========================================")
 print("MODARIA SERVERLESS WORKER")
 print("========================================")
 
-# Comprobar que la variable existe sin mostrar la clave
 if os.environ.get("COMFY_API_KEY"):
     print("COMFY_API_KEY detectada.")
 else:
@@ -255,4 +253,3 @@ comfy_process = start_comfyui()
 runpod.serverless.start({
     "handler": handler
 })
-```
